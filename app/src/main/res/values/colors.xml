@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+
+    <color name="picker_transparent_white">#4DFFFFFF</color>
+    <color name="color_gray_1">#9b9b9b</color>
+    <color name="color_gray_2">#e6e6e6</color>
+    <color name="color_gray_3">#D9D9D9</color>
+    <color name="color_gray_4">#E0DBDBDB</color>
+    <color name="color_gray_5">#999999</color>
+
+    <color name="color_black_1">#1A1A1A</color>
+    <color name="color_black_2">#4d4d4d</color>
+    <color name="color_black_3">#53575e</color>
+    <color name="color_black_4">#80000000</color>
+    <color name="color_black_5">#20000000</color>
+
+    <color name="theme_color_black">#333333</color>
+    <color name="color_white_3">#EEEEEE</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="green">#4CAF50</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent_black">#4D000000</color>
+    <color name="color_white_2">#F0FFFFFF</color>
+</resources>
