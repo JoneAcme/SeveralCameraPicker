@@ -52,19 +52,4 @@
         android:textSize="11sp"
         android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/tvDuration"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/picker_img_buy"
-        android:drawableLeft="@drawable/picker_img_video_icon"
-        android:drawablePadding="5dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="5dp"
-        android:paddingTop="8dp"
-        android:text="00:00"
-        android:textColor="@color/white"
-        android:textSize="11sp"
-        android:visibility="gone" />
 </RelativeLayout>

@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.jone.several.selector.logic.widget.photoview.PhotoView
 import com.jone.sevral.R
 import com.jone.sevral.model.MediaEntity
+import com.jone.sevral.utils.loadImage
 
 /**
  * @fileName SimpleFragmentAdapter
@@ -51,8 +52,7 @@ class SimpleFragmentAdapter(var mContext: Context, var allMediaList: MutableList
             mediaEntity.finalPath
 
         preview_image.visibility = View.VISIBLE
-
-        Glide.with(mContext).load(path).into(preview_image)
+        mContext.loadImage(path,preview_image)
         container.addView(contentView, 0)
         return contentView
     }

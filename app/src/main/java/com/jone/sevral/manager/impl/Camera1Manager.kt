@@ -5,6 +5,8 @@ import android.graphics.PixelFormat
 import android.graphics.Rect
 import android.hardware.Camera
 import android.media.ExifInterface
+import android.media.MediaScannerConnection
+import android.net.Uri
 import android.os.Build
 import android.util.Log
 import android.view.MotionEvent
@@ -281,7 +283,9 @@ class Camera1Manager : BaseCameraManager<Int, SurfaceHolder.Callback>() {
             exif.setAttribute(ExifInterface.TAG_ORIENTATION, "" + getPhotoOrientation(cameraConfigProvider.sensorPosition))
             exif.saveAttributes()
 
-            mUiiHandler.post { callback.onPictureTaken(outFile.absolutePath) }
+            mUiiHandler.post {
+
+                callback.onPictureTaken(outFile.absolutePath) }
             camera.startPreview()
         } catch (error: Throwable) {
             callback.onPictureTakeError()

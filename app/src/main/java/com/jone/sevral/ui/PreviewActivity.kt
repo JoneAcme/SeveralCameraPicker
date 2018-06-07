@@ -16,6 +16,7 @@ import com.jone.sevral.model.MediaEntity
 import com.jone.sevral.model.rxbus.RxBus
 import com.jone.sevral.ui.adapter.SimpleFragmentAdapter
 import com.jone.sevral.ui.widget.PreviewViewPager
+import com.jone.sevral.utils.OverrideTransition
 import com.jone.sevral.utils.ScreenUtil
 import kotlinx.android.synthetic.main.activity_preview.*
 
@@ -83,7 +84,7 @@ class PreviewActivity : AppCompatActivity(), View.OnClickListener {
         when (v.id) {
             R.id.pickTvBack -> {
                 finish()
-                this.overridePendingTransition(0, R.anim.picker_anim_activity_out)
+
             }
             R.id.ll_check -> {
                 checkView()
@@ -102,6 +103,7 @@ class PreviewActivity : AppCompatActivity(), View.OnClickListener {
         // 刷新图片列表中图片状态
         val isChecked = tv_check.isSelected
         if (pickedMediaList.size >= pickerOption.maxPickNumber && !isChecked) {
+            
             showToast(getString(R.string.message_max_number, pickerOption.maxPickNumber))
             return
         }
@@ -234,10 +236,12 @@ class PreviewActivity : AppCompatActivity(), View.OnClickListener {
     private fun complitePreview() {
         val obj = EventEntity(PickerConstant.FLAG_PREVIEW_COMPLETE, pickedMediaList, index)
         RxBus.default.post(obj)
+        this.finish()
     }
 
 
     private fun showToast(msg: String) {
+
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 
     }

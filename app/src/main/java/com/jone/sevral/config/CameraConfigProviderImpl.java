@@ -39,20 +39,6 @@ public class CameraConfigProviderImpl implements CameraConfigProvider {
         return mediaQuality;
     }
 
-    @Override
-    public int getVideoDuration() {
-        return videoDuration;
-    }
-
-    @Override
-    public long getVideoFileSize() {
-        return videoFileSize;
-    }
-
-    @Override
-    public int getMinimumVideoDuration() {
-        return minimumVideoDuration / 1000;
-    }
 
     @Override
     public final int getSensorPosition() {

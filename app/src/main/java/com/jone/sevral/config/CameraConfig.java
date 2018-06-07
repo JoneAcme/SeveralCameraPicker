@@ -112,33 +112,6 @@ public final class CameraConfig implements Serializable {
             return this;
         }
 
-        /**
-         * @param videoDurationInMilliseconds - video duration in milliseconds
-         * @return
-         */
-        public Builder setVideoDuration(@IntRange(from = 1000, to = Integer.MAX_VALUE) int videoDurationInMilliseconds) {
-            cameraConfig.videoDuration = videoDurationInMilliseconds;
-            return this;
-        }
-
-        /**
-         * @param minimumVideoDurationInMilliseconds - minimum video duration in milliseconds, used only in video mode
-         *                                           for auto quality.
-         * @return
-         */
-        public Builder setMinimumVideoDuration(@IntRange(from = 1000, to = Integer.MAX_VALUE) int minimumVideoDurationInMilliseconds) {
-            cameraConfig.minimumVideoDuration = minimumVideoDurationInMilliseconds;
-            return this;
-        }
-
-        /**
-         * @param videoSizeInBytes - file size in bytes
-         * @return
-         */
-        public Builder setVideoFileSize(@IntRange(from = 1048576, to = Long.MAX_VALUE) long videoSizeInBytes) {
-            cameraConfig.videoFileSize = videoSizeInBytes;
-            return this;
-        }
 
         public Builder setFlashMode(@FlashMode int flashMode) {
             cameraConfig.flashMode = flashMode;

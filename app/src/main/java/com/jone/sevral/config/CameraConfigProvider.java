@@ -8,16 +8,12 @@ public interface CameraConfigProvider {
     @CameraConfig.MediaQuality
     int getMediaQuality();
 
-    int getVideoDuration();
-
-    long getVideoFileSize();
 
     @CameraConfig.SensorPosition
     int getSensorPosition();
 
     int getDegrees();
 
-    int getMinimumVideoDuration();
 
     @CameraConfig.FlashMode
     int getFlashMode();

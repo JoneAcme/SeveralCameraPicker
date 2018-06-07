@@ -10,12 +10,35 @@
         android:id="@+id/flCamera"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true" />
 
-    <Button
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp">
+
+    <ImageView
+        android:id="@+id/ivPreview"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        android:layout_centerVertical="true"/>
+
+    <com.jone.sevral.ui.widget.CameraButton
         android:id="@+id/btn"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerInParent="true"/>
+    <ImageView
+        android:id="@+id/ivCameraClose"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/picker_arrow_down"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        />
+    </RelativeLayout>
 </RelativeLayout>

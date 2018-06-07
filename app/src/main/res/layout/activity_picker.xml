@@ -19,11 +19,13 @@
         android:layout_above="@+id/rl_bottom"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp" />
+
     <RelativeLayout
         android:id="@+id/rl_bottom"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
         android:background="@color/theme_color_black"
         android:gravity="center_vertical">
 

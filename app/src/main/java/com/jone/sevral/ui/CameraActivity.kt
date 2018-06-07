@@ -6,6 +6,8 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.media.MediaActionSound
+import android.media.MediaScannerConnection
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -14,16 +16,19 @@ import android.support.annotation.RequiresApi
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.jone.sevral.R
-import com.jone.sevral.config.CameraConfig
-import com.jone.sevral.config.CameraConfigProvider
-import com.jone.sevral.config.CameraConfigProviderImpl
-import com.jone.sevral.config.PickerOption
+import com.jone.sevral.SeveralImagePicker
+import com.jone.sevral.config.*
 import com.jone.sevral.lifecycle.BaseLifecycle
 import com.jone.sevral.lifecycle.Camera1Lifecycle
 import com.jone.sevral.lifecycle.Camera2Lifecycle
 import com.jone.sevral.listener.CameraView
+import com.jone.sevral.model.EventEntity
 import com.jone.sevral.model.MediaEntity
+import com.jone.sevral.model.rxbus.RxBus
+import com.jone.sevral.model.rxbus.Subscribe
+import com.jone.sevral.model.rxbus.ThreadMode
 import com.jone.sevral.utils.*
 import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,35 +36,49 @@ import java.util.ArrayList
 import kotlin.properties.Delegates
 
 class CameraActivity : AppCompatActivity(), CameraView {
+    private val MIN_VERSION_ICECREAM = Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1
+
     private val DIRECTORY_NAME = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath + "/Camera"
 
     private lateinit var mCameraLifecycle: BaseLifecycle
-    var mSensorManager: SensorManager by Delegates.notNull()
-    var mCameraConfigProvider: CameraConfigProvider by Delegates.notNull()
-
+    private var mSensorManager: SensorManager by Delegates.notNull()
+    private var mCameraConfigProvider: CameraConfigProvider by Delegates.notNull()
+    private val mCameraMediaList = ArrayList<MediaEntity>()
+    private var pickedMediaList = ArrayList<MediaEntity>()
+    private var pickerOption = PickerOption()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        if (!RxBus.default.isRegistered(this))
+            RxBus.default.register(this)
         mSensorManager = getSystemService(Activity.SENSOR_SERVICE) as SensorManager
         this.mCameraConfigProvider = CameraConfigProviderImpl()
         this.mCameraConfigProvider.setCameraConfig(CameraConfig.Builder().build())
-
+        pickerOption = intent.getParcelableExtra<PickerOption>(PickerConstant.PICKER_OPTION)
 
         RxPermissions(this).request(Manifest.permission.CAMERA,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe {
             val hasCamera2 = CameraUtils.hasCamera2(this)
             Log.e("Activity", "has Camera2:$hasCamera2")
-            if (hasCamera2) {
-            @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-            mCameraLifecycle = Camera2Lifecycle(this, mCameraConfigProvider, this)
-            } else {
-                mCameraLifecycle = Camera1Lifecycle(this, mCameraConfigProvider, this)
-            }
+//            if (hasCamera2) {
+                @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+                mCameraLifecycle = Camera2Lifecycle(this, mCameraConfigProvider, this)
+//            } else {
+//                mCameraLifecycle = Camera1Lifecycle(this, mCameraConfigProvider, this)
+//            }
         }
         btn.setOnClickListener {
+            if (pickedMediaList.size >= pickerOption.maxPickNumber) {
+                return@setOnClickListener
+            }
             mCameraLifecycle.cameraPictureTaken(DIRECTORY_NAME)
+        }
+        ivPreview.setOnClickListener {
+            startPreview()
+        }
+        ivCameraClose.setOnClickListener {
+            finish()
         }
         initConfig()
     }
@@ -90,10 +109,6 @@ class CameraActivity : AppCompatActivity(), CameraView {
             it.addView(cameraPreview)
             it.setAspectRatio((previewSize.height).toDouble() / (previewSize.width).toDouble())
         }
-        flCamera.setOnTouchListener { v, event ->
-            mCameraLifecycle.focusOnTouch(flCamera.width,flCamera.height,event)
-             true
-        }
 
     }
 
@@ -101,16 +116,38 @@ class CameraActivity : AppCompatActivity(), CameraView {
     }
 
     override fun onPhotoTaken(outPath: String) {
-        val mediaList = ArrayList<MediaEntity>()
+        if (Build.VERSION.SDK_INT > MIN_VERSION_ICECREAM && pickerOption.enableClickSound) {
+            MediaActionSound().play(MediaActionSound.SHUTTER_CLICK)
+        }
+        loadCameraPreviewImage(outPath, ivPreview)
         val mediaEntity = MediaEntity.newBuilder()
                 .localPath(outPath)
                 .build()
-        mediaList.add(mediaEntity)
-        Navigator.showPreviewView(this, PickerOption(), mediaList, mediaList, 0)
+        mCameraMediaList.add(mediaEntity)
+        pickedMediaList.add(mediaEntity)
+        /**刷新系统MediaStore*/
+        try {
+            MediaScannerConnection.scanFile(this, arrayOf(outPath), null
+            ) { path, uri -> }
+        } catch (ignore: Exception) {
+        }
+        if (pickedMediaList.size >= pickerOption.maxPickNumber)
+            startPreview()
+        updatePickerActivity()
+    }
+
+    private fun startPreview() {
+        if (mCameraMediaList.isEmpty()) return
+        Navigator.showPreviewView(this, pickerOption, mCameraMediaList, pickedMediaList, 0)
+    }
+
+    private fun updatePickerActivity() {
+        val obj = EventEntity(PickerConstant.FLAG_PREVIEW_UPDATE_SELECT, pickedMediaList, pickedMediaList.size)
+        RxBus.default.post(obj)
     }
 
     override fun onPhotoTakeFail() {
-        Toast.makeText(this, "onPhotoTakeFail", Toast.LENGTH_SHORT).show()
+        showToast("拍照失败！")
     }
 
     override fun onResume() {
@@ -166,6 +203,25 @@ class CameraActivity : AppCompatActivity(), CameraView {
 //            mCameraStateListener.shouldRotateControls(degrees)
 //        }
 //        rotateSettingsDialog(degrees)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (RxBus.default.isRegistered(this))
+            RxBus.default.unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun eventBus(obj: EventEntity) {
+        when (obj.what) {
+            PickerConstant.FLAG_PREVIEW_COMPLETE -> {
+                mCameraLifecycle.onDestroy()
+                finish()
+            }
+            PickerConstant.FLAG_PREVIEW_UPDATE_SELECT -> {
+                pickedMediaList = obj.mediaEntities as ArrayList<MediaEntity>
+            }
+        }
     }
 
 }

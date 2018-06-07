@@ -16,13 +16,12 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.jone.sevral.R
+import com.jone.sevral.SeveralImagePicker
 import com.jone.sevral.config.MimeType
 import com.jone.sevral.config.PickerConstant
 import com.jone.sevral.config.PickerOption
 import com.jone.sevral.model.MediaEntity
-import com.jone.sevral.utils.AnimationLoader
-import com.jone.sevral.utils.DateUtils
-import com.jone.sevral.utils.StringUtils
+import com.jone.sevral.utils.*
 import kotlinx.android.synthetic.main.item_camera.view.*
 import kotlinx.android.synthetic.main.item_grid_media.view.*
 import java.util.ArrayList
@@ -80,7 +79,7 @@ class PickerAdapter(private val context: Context, private val config: PickerOpti
         pickMediaList.clear()
         pickMediaList.addAll(medias)
         subSelectPosition()
-            onPicktChangedListener?.onChange(pickMediaList)
+        onPicktChangedListener?.onChange(pickMediaList)
     }
 
     fun getPickMediaList(): MutableList<MediaEntity> {
@@ -122,35 +121,13 @@ class PickerAdapter(private val context: Context, private val config: PickerOpti
             }
             selectImage(contentHolder, isSelected(image), false)
 
-            val picture = MimeType.getFileType(pictureType)
             val gif = MimeType.isGif(pictureType)
             contentHolder.itemView.tv_isGif.visibility = if (gif) View.VISIBLE else View.GONE
-            if (mimeType == MimeType.ofAudio()) {
-                contentHolder.itemView.tvDuration.visibility = View.VISIBLE
-                val drawable = ContextCompat.getDrawable(context, R.drawable.picker_img_audio)!!
-                StringUtils.modifyTextViewDrawable(contentHolder.itemView.tvDuration, drawable, 0)
-            } else {
-                val drawable = ContextCompat.getDrawable(context, R.drawable.picker_img_video_icon)!!
-                StringUtils.modifyTextViewDrawable(contentHolder.itemView.tvDuration, drawable, 0)
-                contentHolder.itemView.tvDuration.visibility = if (picture == PickerConstant.TYPE_VIDEO)
-                    View.VISIBLE
-                else
-                    View.GONE
-            }
             val width = image.width
             val height = image.height
             val h = width * 5
             contentHolder.itemView.tv_long_chart.visibility = if (height > h) View.VISIBLE else View.GONE
-            val duration = image.duration
-            contentHolder.itemView.tvDuration.text = DateUtils.timeParse(duration)
-            if (mimeType == MimeType.ofAudio()) {
-//                contentHolder.itemView.iv_picture.setImageResource(R.drawable.phoenix_audio_placeholder)
-            } else {
-//                Phoenix.config()
-//                        .imageLoader
-//                        .loadImage(context, contentHolder.itemView.iv_picture, path, PickerConstant.IMAGE_PROCESS_TYPE_DEFAULT)
-                Glide.with(context).load(path).into(contentHolder.itemView.iv_picture)
-            }
+            context.loadImage(path, contentHolder.itemView.iv_picture)
             if (enablePreview) {
                 contentHolder.itemView.ll_check.setOnClickListener { changeCheckboxState(contentHolder, image) }
 
@@ -171,7 +148,7 @@ class PickerAdapter(private val context: Context, private val config: PickerOpti
         return if (enableCamera) allMediaList.size + 1 else allMediaList.size
     }
 
-    inner class HeaderViewHolder(headerView: View) : RecyclerView.ViewHolder(headerView){
+    inner class HeaderViewHolder(headerView: View) : RecyclerView.ViewHolder(headerView) {
         init {
             val params = headerView.srl_camera.layoutParams
             params.width = overrideWidth
@@ -181,7 +158,7 @@ class PickerAdapter(private val context: Context, private val config: PickerOpti
     }
 
 
-    inner class ContentViewHolder(contentView: View) : RecyclerView.ViewHolder(contentView){
+    inner class ContentViewHolder(contentView: View) : RecyclerView.ViewHolder(contentView) {
         init {
             val params = contentView.iv_picture.layoutParams
             params.width = overrideWidth
@@ -237,14 +214,12 @@ class PickerAdapter(private val context: Context, private val config: PickerOpti
         } else {
             if (isExceedMax) {
                 notifyDataSetChanged()
-                Toast.makeText(context, context.getString(R.string.message_max_number, maxSelectNum),
-                        Toast.LENGTH_LONG).show()
+                context.showToast(context.getString(R.string.message_max_number, maxSelectNum))
                 return
             }
 
             pickMediaList.add(image)
             image.number = pickMediaList!!.size
-//            VoiceUtils.playVoice(context, enableVoice)
             zoom(contentHolderContent.itemView.iv_picture)
         }
 

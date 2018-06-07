@@ -11,6 +11,8 @@ import com.bumptech.glide.Glide
 import com.jone.sevral.R
 import com.jone.sevral.model.MediaEntity
 import com.jone.sevral.model.MediaFolder
+import com.jone.sevral.utils.loadImage
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_album_folder.view.*
 import java.util.ArrayList
 
@@ -53,7 +55,7 @@ class PickerAlbumAdapter(private val mContext: Context) : RecyclerView.Adapter<P
         val checkedNum = folder.checkedNumber
         holder.tv_sign.visibility = if (checkedNum > 0) View.VISIBLE else View.INVISIBLE
         holder.itemView.isSelected = isChecked
-        Glide.with(mContext).load(imagePath).into(holder.itemView.first_image)
+        mContext.loadImage(imagePath,holder.itemView.first_image)
         holder.image_num.text = "($imageNum)"
         holder.tv_folder_name.text = name
         holder.itemView.setOnClickListener {

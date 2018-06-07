@@ -61,6 +61,7 @@ class Camera1Lifecycle(var mContext: Context, var cameraConfigProvider: CameraCo
     }
 
     override fun onDestroy() {
+        mCameraManager.closeCamera(null)
         mCameraManager.releaseManager()
     }
 

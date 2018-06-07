@@ -14,11 +14,11 @@
 
         <ImageView
             android:id="@+id/pickTvBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
-            android:src="@drawable/picker_arrow_left" />
+            android:src="@drawable/picker_arrow_left"
+            android:scaleType="centerInside"/>
 
         <TextView
             android:id="@+id/pickTvTitle"

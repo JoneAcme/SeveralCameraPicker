@@ -1,11 +1,19 @@
 package com.jone.sevral.config
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.graphics.Color
 import android.os.Environment
 import android.os.Parcel
 import android.os.Parcelable
+import com.jone.sevral.comments.impl.DefaltToast
+import com.jone.sevral.comments.impl.DefaultImageLoader
+import com.jone.sevral.comments.impl.DefaultLoading
+import com.jone.sevral.comments.inter.ImageLoaderInterface
+import com.jone.sevral.comments.inter.LoadingDialogInterface
+import com.jone.sevral.comments.inter.ToastInterFace
 import com.jone.sevral.model.MediaEntity
+import com.jone.sevral.utils.Navigator
 import java.util.ArrayList
 
 @SuppressLint("ParcelCreator")
@@ -16,6 +24,7 @@ import java.util.ArrayList
  */
 
 class PickerOption() : Parcelable {
+
     object THEME {
         //主题颜色 - 默认
         val THEME_DEFAULT = Color.parseColor("#333333")
@@ -29,6 +38,7 @@ class PickerOption() : Parcelable {
 
     //主题样式，
     private var theme = THEME.THEME_DEFAULT
+
     //是否显示拍照按钮
     var enableCamera = true
 

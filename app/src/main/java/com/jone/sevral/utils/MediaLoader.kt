@@ -75,7 +75,12 @@ object MediaLoader {
             LONGITUDE,
             DURATION)
 
-    fun loadAllMedia(mActivity: FragmentActivity, body: (folders: MutableList<MediaFolder>) -> Unit, fail: () -> Unit) {
+    interface LocalMediaLoadListener {
+        fun loadComplete(folders: MutableList<MediaFolder>)
+    }
+
+
+    fun loadAllMedia(mActivity: FragmentActivity,listener:LocalMediaLoadListener) {
         mActivity.supportLoaderManager.initLoader(type, null, object : LoaderManager.LoaderCallbacks<Cursor> {
             override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {
                 if (data == null) {
@@ -146,10 +151,10 @@ object MediaLoader {
                             allImageFolder.name = title
                             allImageFolder.images = latelyImages
                         }
-                        body(imageFolders)
+                        listener.loadComplete(imageFolders)
                     } else {
                         // 如果没有相册
-                        body(imageFolders)
+                        listener.loadComplete(imageFolders)
                     }
                 } catch (e: Exception) {
 
@@ -169,6 +174,7 @@ object MediaLoader {
                         IMAGE_SELECTION_ARGS,
                         MediaStore.Files.FileColumns.DATE_ADDED + " DESC")
             }
+
 
         })
     }
