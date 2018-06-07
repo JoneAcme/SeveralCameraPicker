@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.CameraActivity">
-
         </activity>
         <activity android:name=".ui.PreviewActivity" />
         <activity android:name=".ui.PickerActivity">

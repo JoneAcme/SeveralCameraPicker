@@ -1,6 +1,7 @@
 package com.jone.sevral.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -47,6 +48,7 @@ class CameraActivity : AppCompatActivity(), CameraView {
     private var pickedMediaList = ArrayList<MediaEntity>()
     private var pickerOption = PickerOption()
 
+    @SuppressLint("StringFormatMatches")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -70,6 +72,8 @@ class CameraActivity : AppCompatActivity(), CameraView {
         }
         btn.setOnClickListener {
             if (pickedMediaList.size >= pickerOption.maxPickNumber) {
+                showToast(getString(R.string.message_max_number, pickerOption.maxPickNumber))
+                startPreview()
                 return@setOnClickListener
             }
             mCameraLifecycle.cameraPictureTaken(DIRECTORY_NAME)
