@@ -1,19 +1,11 @@
 package com.jone.sevral.config
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.graphics.Color
 import android.os.Environment
 import android.os.Parcel
 import android.os.Parcelable
-import com.jone.sevral.comments.impl.DefaltToast
-import com.jone.sevral.comments.impl.DefaultImageLoader
-import com.jone.sevral.comments.impl.DefaultLoading
-import com.jone.sevral.comments.inter.ImageLoaderInterface
-import com.jone.sevral.comments.inter.LoadingDialogInterface
-import com.jone.sevral.comments.inter.ToastInterFace
 import com.jone.sevral.model.MediaEntity
-import com.jone.sevral.utils.Navigator
 import java.util.ArrayList
 
 @SuppressLint("ParcelCreator")
@@ -34,6 +26,13 @@ class PickerOption() : Parcelable {
         val THEME_ORANGE = Color.parseColor("#FF571A")
         //主题 - 天空蓝主题
         val THEME_BLUE = Color.parseColor("#538EEB")
+    }
+    object QUALITY{
+        val MEDIA_QUALITY_LOWEST = 15
+        val MEDIA_QUALITY_LOW = 20
+        val MEDIA_QUALITY_MEDIUM = 50
+        val MEDIA_QUALITY_HIGH = 80
+        val MEDIA_QUALITY_HIGHEST = 100
     }
 
     //主题样式，
@@ -60,8 +59,7 @@ class PickerOption() : Parcelable {
     var enableGif: Boolean = false
     //是否开启点击预览
     var enablePreview = true
-    //是否开启数字显示模式
-    var pickNumberMode: Boolean = false
+
     //是否开启点击声音
     var enableClickSound = true
     //预览图片时，是否增强左右滑动图片体验
@@ -75,11 +73,15 @@ class PickerOption() : Parcelable {
     //已选择的数据、图片/视频/音频预览的数据
     var pickedMediaList: List<MediaEntity> = ArrayList()
 
-    //拍照、视频的保存地址
+    //拍照保存地址
     var savePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
+    //压缩保存地址
+    var compresssPath = ""
+    //压缩质量
+    var compressQuality = QUALITY.MEDIA_QUALITY_MEDIUM
 
     var fileType:Int = 0
-
+    //是否开启数字显示模式
     var enableNumPick:Boolean = false
 
 
@@ -94,7 +96,6 @@ class PickerOption() : Parcelable {
         enableAnimation = parcel.readByte() != 0.toByte()
         enableGif = parcel.readByte() != 0.toByte()
         enablePreview = parcel.readByte() != 0.toByte()
-        pickNumberMode = parcel.readByte() != 0.toByte()
         enableClickSound = parcel.readByte() != 0.toByte()
         previewEggs = parcel.readByte() != 0.toByte()
         enableCompress = parcel.readByte() != 0.toByte()
@@ -114,7 +115,6 @@ class PickerOption() : Parcelable {
         parcel.writeByte(if (enableAnimation) 1 else 0)
         parcel.writeByte(if (enableGif) 1 else 0)
         parcel.writeByte(if (enablePreview) 1 else 0)
-        parcel.writeByte(if (pickNumberMode) 1 else 0)
         parcel.writeByte(if (enableClickSound) 1 else 0)
         parcel.writeByte(if (previewEggs) 1 else 0)
         parcel.writeByte(if (enableCompress) 1 else 0)

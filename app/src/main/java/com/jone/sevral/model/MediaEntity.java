@@ -383,6 +383,41 @@ public class MediaEntity implements Serializable, Parcelable {
         this.editPath = editPath;
     }
 
+
+    @Override
+    public String toString() {
+        return "MediaEntity{" +
+                "fileType=" + fileType +
+                ", mimeType='" + mimeType + '\'' +
+                ", mediaName='" + mediaName + '\'' +
+                ", createTime=" + createTime +
+                ", localPath='" + localPath + '\'' +
+                ", localThumbnailPath='" + localThumbnailPath + '\'' +
+                ", duration=" + duration +
+                ", isChecked=" + isChecked +
+                ", position=" + position +
+                ", number=" + number +
+                ", width=" + width +
+                ", height=" + height +
+                ", size=" + size +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", isUploaded=" + isUploaded +
+                ", onlinePath='" + onlinePath + '\'' +
+                ", onlineThumbnailPath='" + onlineThumbnailPath + '\'' +
+                ", isCompressed=" + isCompressed +
+                ", compressPath='" + compressPath + '\'' +
+                ", cutPath='" + cutPath + '\'' +
+                ", cropOffsetX=" + cropOffsetX +
+                ", cropOffsetY=" + cropOffsetY +
+                ", cropWidth=" + cropWidth +
+                ", cropHeight=" + cropHeight +
+                ", cropAspectRatio=" + cropAspectRatio +
+                ", isCut=" + isCut +
+                ", editPath='" + editPath + '\'' +
+                '}';
+    }
+
     public static final class Builder implements Parcelable {
         private int fileType = 0;
         private String mimeType;

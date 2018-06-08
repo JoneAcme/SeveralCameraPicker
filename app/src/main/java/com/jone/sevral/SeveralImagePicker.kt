@@ -1,9 +1,11 @@
 package com.jone.sevral
 
 import android.app.Activity
-import com.jone.sevral.comments.impl.DefaltToast
+import com.jone.sevral.comments.impl.DefaultCompress
+import com.jone.sevral.comments.impl.DefaultToast
 import com.jone.sevral.comments.impl.DefaultImageLoader
 import com.jone.sevral.comments.impl.DefaultLoading
+import com.jone.sevral.comments.inter.CompressInterface
 import com.jone.sevral.comments.inter.ImageLoaderInterface
 import com.jone.sevral.comments.inter.LoadingDialogInterface
 import com.jone.sevral.comments.inter.ToastInterFace
@@ -17,11 +19,14 @@ import com.jone.sevral.utils.Navigator
  */
 
 object SeveralImagePicker {
-    var mToast: ToastInterFace = DefaltToast()
+    var mToast: ToastInterFace = DefaultToast()
     var mLoadingDialog: LoadingDialogInterface = DefaultLoading()
     var mImageLoader: ImageLoaderInterface = DefaultImageLoader()
+    var mCompress:CompressInterface = DefaultCompress()
+
 
     fun start(activity: Activity, option: PickerOption = PickerOption()) {
         Navigator.startPicker(activity, option)
     }
+
 }

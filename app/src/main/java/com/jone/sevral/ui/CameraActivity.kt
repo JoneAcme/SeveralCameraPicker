@@ -63,12 +63,12 @@ class CameraActivity : AppCompatActivity(), CameraView {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe {
             val hasCamera2 = CameraUtils.hasCamera2(this)
             Log.e("Activity", "has Camera2:$hasCamera2")
-//            if (hasCamera2) {
+            if (hasCamera2) {
                 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
                 mCameraLifecycle = Camera2Lifecycle(this, mCameraConfigProvider, this)
-//            } else {
-//                mCameraLifecycle = Camera1Lifecycle(this, mCameraConfigProvider, this)
-//            }
+            } else {
+                mCameraLifecycle = Camera1Lifecycle(this, mCameraConfigProvider, this)
+            }
         }
         btn.setOnClickListener {
             if (pickedMediaList.size >= pickerOption.maxPickNumber) {

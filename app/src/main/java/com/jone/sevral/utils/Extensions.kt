@@ -4,12 +4,12 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.support.annotation.IdRes
+import android.util.Log
 import android.widget.ImageView
 import com.jone.sevral.R
 import com.jone.sevral.SeveralImagePicker
 import com.jone.sevral.config.PickerOption
 import com.jone.sevral.model.MediaEntity
-import com.jone.sevral.processor.PictureCompressProcessor
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.Observer
@@ -44,31 +44,36 @@ fun Context.createLoadingDialog() = SeveralImagePicker.mLoadingDialog.createDial
 
 /**
  * 压缩图片，
- * 压缩后 isCompressed = true
- * 路径存放 setCompressPath
  * 如果不压缩，即返回原路径
  */
-fun Context.compressMedias(pickerOption: PickerOption, mediaList: MutableList<MediaEntity>, loading: Dialog, onResult: (MutableList<MediaEntity>) -> Unit) {
-    val result: MutableList<MediaEntity> = ArrayList()
+fun Context.compressMedias(pickerOption: PickerOption, mediaList: MutableList<MediaEntity>, loading: Dialog, onResult: (MutableList<String>) -> Unit) {
+    val result: MutableList<String> = ArrayList()
 
     if (!pickerOption.enableCompress) {
-        onResult(mediaList)
+        mediaList.forEach {
+            result.add(it.localPath)
+        }
+        onResult(result)
         return
     }
-    Observable.create(ObservableOnSubscribe<MediaEntity> { e ->
+    Observable.create(ObservableOnSubscribe<String> { e ->
         mediaList.forEach {
-            e.onNext(PictureCompressProcessor().syncProcess(this, it, pickerOption))
+            if (it.isCompressed || it.size > pickerOption.compressPictureFilterSize * 1000)
+                e.onNext(SeveralImagePicker.mCompress.compress(this, it.localPath, pickerOption))
+            else
+                e.onNext(it.localPath)
         }
         e.onComplete()
     }).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<MediaEntity> {
+            .subscribe(object : Observer<String> {
                 override fun onSubscribe(d: Disposable) {
                     if (!loading.isShowing) loading.show()
                 }
 
-                override fun onNext(mediaEntity: MediaEntity) {
-                    result.add(mediaEntity)
+                override fun onNext(path: String) {
+                    Log.e("onNext", path)
+                    result.add(path)
                 }
 
                 override fun onError(e: Throwable) {

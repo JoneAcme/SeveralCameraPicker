@@ -5,12 +5,12 @@ import android.widget.Toast
 import com.jone.sevral.comments.inter.ToastInterFace
 
 /**
- * @fileName DefaltToast
+ * @fileName DefaultToast
  * Created by YiangJone on 2018/6/7.
  * @describe
  */
 
-class DefaltToast: ToastInterFace {
+class DefaultToast : ToastInterFace {
     override fun show(mContext: Context, msg: String) {
         Toast.makeText(mContext,msg,Toast.LENGTH_SHORT).show()
     }
