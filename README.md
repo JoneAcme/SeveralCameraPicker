@@ -10,40 +10,19 @@
         }).start(this)
  ```
 
-SeveralImagePicker 中可设置接口，自定义Toast、loadingDialog、图片加载、图片压缩、完成后的回调、选择照片的参数
-如下：
-```
+### SeveralImagePicker 中可设置接口：
+功能 | 设置方法
+---- | ---
+1.自定义Toast  | setDefaultToast(mToast: ToastInterFace)
+2.loadingDialog  |  setDefaultLoadingDialog(mLoadingDialog: LoadingDialogInterface)
+3.图片加载  |  setDefaultImageLoader(mImageLoader: ImageLoaderInterface)
+4.图片压缩  |  setDefaultCompress(mCompress: CompressInterface)
+5.完成后的回调  |  setCompleteListener(mCompleteListener: PickerCompleteInterface)
+6.选择照片的参数  |  setOptions( pickerOption: PickerOption) 
 
- /**
-     * Toast
-     */
-    fun setDefaultToast(mToast: ToastInterFace)
-    
-     /**
-     * loading、 dialog
-     */
-    fun setDefaultLoadingDialog(mLoadingDialog: LoadingDialogInterface)
-    
-     /**
-     * 图片加载
-     */
-    fun setDefaultImageLoader(mImageLoader: ImageLoaderInterface)
-    
-    /**
-     * 图片压缩
-     */
-    fun setDefaultCompress(mCompress: CompressInterface)
-    
-     /**
-     * 图片返回回调
-     */
-    fun setCompleteListener(mCompleteListener: PickerCompleteInterface)
-    
-    /**
-     * 图片选择参数
-     */
-    fun setOptions( pickerOption: PickerOption) 
- ```
+ >  以上接口如无要求可不设置，提供默认实现。 
+ >  图片加载默认实现使用Glide
+ >  压缩使用的Bitmap.compress
 
 
 
