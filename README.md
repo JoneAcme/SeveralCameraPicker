@@ -29,7 +29,7 @@ loadingDialog  |  setDefaultLoadingDialog(mLoadingDialog: LoadingDialogInterface
 
 
 
-PickerOption   图片选择的参数：
+### PickerOption   图片选择的参数：
 ```
 //是否显示拍照按钮
     var enableCamera = true
