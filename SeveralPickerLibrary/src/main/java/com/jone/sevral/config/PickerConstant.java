@@ -58,23 +58,6 @@ public final class PickerConstant {
      */
     public static final String KEY_PREVIEW_TYPE = "";
 
-    public static final String BITMPA_KEY = "bitmap_key";
-    public static final String ROTATION_KEY = "rotation_key";
-    public static final String IMAGE_INFO = "image_info";
-
-    public final static String FC_TAG = "picture";
-    public final static String EXTRA_RESULT_SELECTION = "extra_result_media";
-    public final static String EXTRA_LOCAL_MEDIAS = "localMedias";
-
-    public final static String EXTRA_ON_PICTURE_DELETE_LISTNER = "onPictureDeleteListener";
-    public final static String EXTRA_MEDIA = "media";
-    public final static String DIRECTORY_PATH = "directory_path";
-    public final static String BUNDLE_CAMERA_PATH = "CameraPath";
-    public final static String BUNDLE_ORIGINAL_PATH = "OriginalPath";
-    public final static String EXTRA_PICKER_OPTION = "PictureSelectorConfig";
-    public final static String AUDIO = "audio";
-    public final static String IMAGE = "image";
-    public final static String VIDEO = "video";
 
     public final static int FLAG_PREVIEW_UPDATE_SELECT = 2774;// 预览界面更新选中数据 标识
     public final static int CLOSE_PREVIEW_FLAG = 2770;// 关闭预览界面 标识

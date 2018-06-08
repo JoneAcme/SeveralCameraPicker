@@ -70,8 +70,6 @@ class PickerOption() : Parcelable {
     //图片压缩阈值（多少kb以下的图片不进行压缩，默认1024kb）
     var compressPictureFilterSize = 1024
 
-    //已选择的数据、图片/视频/音频预览的数据
-    var pickedMediaList: List<MediaEntity> = ArrayList()
 
     //拍照保存地址
     var savePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
@@ -80,7 +78,6 @@ class PickerOption() : Parcelable {
     //压缩质量
     var compressQuality = QUALITY.MEDIA_QUALITY_MEDIUM
 
-    var fileType:Int = 0
     //是否开启数字显示模式
     var enableNumPick:Boolean = false
 
@@ -100,7 +97,6 @@ class PickerOption() : Parcelable {
         previewEggs = parcel.readByte() != 0.toByte()
         enableCompress = parcel.readByte() != 0.toByte()
         compressPictureFilterSize = parcel.readInt()
-        pickedMediaList = parcel.createTypedArrayList(MediaEntity.CREATOR)
         savePath = parcel.readString()
     }
 
@@ -119,7 +115,6 @@ class PickerOption() : Parcelable {
         parcel.writeByte(if (previewEggs) 1 else 0)
         parcel.writeByte(if (enableCompress) 1 else 0)
         parcel.writeInt(compressPictureFilterSize)
-        parcel.writeTypedList(pickedMediaList)
         parcel.writeString(savePath)
     }
 

@@ -41,7 +41,6 @@ class PickerAdapter(private val context: Context, private val config: PickerOpti
     private val enableVoice: Boolean
     private val overrideWidth: Int
     private val overrideHeight: Int
-    private val mimeType: Int
     private val animation: Animation by lazy { AnimationLoader.loadAnimation(context, R.anim.picker_anim_window_in) }
     private val zoomAnim: Boolean
     private val numPick: Boolean
@@ -54,7 +53,6 @@ class PickerAdapter(private val context: Context, private val config: PickerOpti
         this.overrideWidth = config.thumbnailWidth
         this.overrideHeight = config.thumbnailHeight
         this.enableVoice = config.enableClickSound
-        this.mimeType = config.fileType
         this.zoomAnim = config.enableAnimation
         this.numPick = config.enableNumPick
 

@@ -79,7 +79,9 @@ object SeveralImagePicker {
         this.mCompleteListener = mCompleteListener
         return this
     }
-
+    /**
+     * 图片选择参数
+     */
     fun setOptions( pickerOption: PickerOption) : SeveralImagePicker{
         this.pickerOption = pickerOption
         return  this
