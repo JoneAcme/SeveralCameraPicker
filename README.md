@@ -10,7 +10,7 @@
         }).start(this)
  ```
 
-### SeveralImagePicker 中可设置接口：
+### SeveralImagePicker 中可设置接口：（继承接口并使用对应设置方法即可）
 功能 | 设置方法
 ---- | ---
 自定义Toast  | setDefaultToast(mToast: ToastInterFace)
@@ -21,8 +21,11 @@ loadingDialog  |  setDefaultLoadingDialog(mLoadingDialog: LoadingDialogInterface
 选择照片的参数  |  setOptions( pickerOption: PickerOption) 
 
  >  以上接口如无要求可不设置，提供默认实现。 
- >  图片加载默认实现使用Glide
- >  压缩使用的Bitmap.compress
+ 
+ >  图片加载默认实现使用Glide  
+ 
+ >  压缩使用的Bitmap.compress  
+ 
 
 
 
