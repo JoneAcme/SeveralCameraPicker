@@ -2,9 +2,8 @@ package com.jone.demo
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import com.jone.sevral.SeveralImagePicker
-import com.jone.sevral.comments.inter.PickerCompleteInterface
+import com.jone.several.SeveralImagePicker
+import com.jone.several.comments.inter.PickerCompleteInterface
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

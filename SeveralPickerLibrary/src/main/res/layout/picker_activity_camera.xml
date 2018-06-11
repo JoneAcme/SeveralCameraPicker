@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jone.sevral.ui.CameraActivityPicker"
+    tools:context="com.jone.several.ui.CameraActivityPicker"
     android:background="#000000">
 
-    <com.jone.sevral.ui.widget.AutoFitFrameLayout
+    <com.jone.several.ui.widget.AutoFitFrameLayout
         android:id="@+id/flCamera"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,7 +28,7 @@
         android:scaleType="centerCrop"
         android:layout_centerVertical="true"/>
 
-    <com.jone.sevral.ui.widget.CameraButton
+    <com.jone.several.ui.widget.CameraButton
         android:id="@+id/btn"
         android:layout_width="50dp"
         android:layout_height="50dp"

@@ -54,7 +54,7 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <com.jone.sevral.ui.widget.PreviewViewPager
+    <com.jone.several.ui.widget.PreviewViewPager
         android:id="@+id/preview_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
