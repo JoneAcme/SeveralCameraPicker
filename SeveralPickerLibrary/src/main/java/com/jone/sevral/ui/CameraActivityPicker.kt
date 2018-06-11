@@ -16,7 +16,6 @@ import android.support.annotation.RequiresApi
 import android.util.Log
 import android.view.View
 import com.jone.sevral.R
-import com.jone.sevral.SeveralImagePicker
 import com.jone.sevral.config.*
 import com.jone.sevral.lifecycle.BaseLifecycle
 import com.jone.sevral.lifecycle.Camera1Lifecycle

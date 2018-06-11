@@ -20,6 +20,7 @@ import com.jone.sevral.listener.CameraOpenListener
 import com.jone.sevral.listener.CameraPictureListener
 import com.jone.sevral.manager.BaseCameraManager
 import com.jone.sevral.utils.CameraUtils
+import com.jone.sevral.utils.ImageUtils
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -283,6 +284,7 @@ class Camera1Manager : BaseCameraManager<Int, SurfaceHolder.Callback>() {
             exif.setAttribute(ExifInterface.TAG_ORIENTATION, "" + getPhotoOrientation(cameraConfigProvider.sensorPosition))
             exif.saveAttributes()
 
+            ImageUtils.amendRotatePhoto(outFile.absolutePath)
             mUiiHandler.post {
 
                 callback.onPictureTaken(outFile.absolutePath) }

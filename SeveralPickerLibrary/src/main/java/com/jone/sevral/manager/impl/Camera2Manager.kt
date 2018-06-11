@@ -25,6 +25,7 @@ import com.jone.sevral.listener.CameraPictureListener
 import com.jone.sevral.manager.BaseCameraManager
 import com.jone.sevral.utils.CameraUtils
 import com.jone.sevral.utils.ImageSaver
+import com.jone.sevral.utils.ImageUtils
 import com.jone.sevral.utils.Size
 import java.io.File
 import java.lang.annotation.Retention
@@ -198,6 +199,9 @@ ImageReader.OnImageAvailableListener{
         mBackgroundHandler?.post(ImageSaver(imageReader.acquireNextImage(), outputFile, object : ImageSaver.ImageSaverCallback {
             override fun onSuccessFinish(bytes: ByteArray) {
                 Log.d(TAG, "onPhotoSuccessFinish: ")
+
+                ImageUtils.amendRotatePhoto(mOutputPath.absolutePath)
+
                 if (mCameraPictureListener != null) {
                     mUiiHandler.post {
                         mCameraPictureListener?.onPictureTaken( mOutputPath.absolutePath)
