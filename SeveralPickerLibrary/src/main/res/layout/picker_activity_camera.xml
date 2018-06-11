@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jone.sevral.ui.CameraActivityPicker">
+    tools:context="com.jone.sevral.ui.CameraActivityPicker"
+    android:background="#000000">
 
     <com.jone.sevral.ui.widget.AutoFitFrameLayout
         android:id="@+id/flCamera"

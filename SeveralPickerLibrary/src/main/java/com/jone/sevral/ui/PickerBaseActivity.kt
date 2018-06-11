@@ -39,4 +39,11 @@ open class PickerBaseActivity : FragmentActivity() {
         super.onDestroy()
         if(loadingDialog.isShowing) loadingDialog.hide()
     }
+
+    protected fun showLoading() {
+        if(!loadingDialog.isShowing) loadingDialog.show()
+    }
+    protected fun dissmissLoading() {
+        if(loadingDialog.isShowing) loadingDialog.hide()
+    }
 }

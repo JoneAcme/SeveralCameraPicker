@@ -72,6 +72,9 @@ class CameraActivityPicker : PickerBaseActivity(), CameraView {
                 startPreview()
                 return@setOnClickListener
             }
+            if (Build.VERSION.SDK_INT > MIN_VERSION_ICECREAM && pickerOption.enableClickSound) {
+                MediaActionSound().play(MediaActionSound.SHUTTER_CLICK)
+            }
             mCameraLifecycle.cameraPictureTaken(DIRECTORY_NAME)
         }
         ivPreview.setOnClickListener {
@@ -116,9 +119,9 @@ class CameraActivityPicker : PickerBaseActivity(), CameraView {
     }
 
     override fun onPhotoTaken(outPath: String) {
-        if (Build.VERSION.SDK_INT > MIN_VERSION_ICECREAM && pickerOption.enableClickSound) {
-            MediaActionSound().play(MediaActionSound.SHUTTER_CLICK)
-        }
+//        if (Build.VERSION.SDK_INT > MIN_VERSION_ICECREAM && pickerOption.enableClickSound) {
+//            MediaActionSound().play(MediaActionSound.SHUTTER_CLICK)
+//        }
         loadCameraPreviewImage(outPath, ivPreview)
         val mediaEntity = MediaEntity.newBuilder()
                 .localPath(outPath)

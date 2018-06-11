@@ -231,9 +231,9 @@ class PreviewActivityPicker : PickerBaseActivity(), View.OnClickListener {
     }
 
     private fun complitePreview() {
-        processMedia(pickedMediaList)
         val obj = EventEntity(PickerConstant.FLAG_PREVIEW_COMPLETE, pickedMediaList, index)
         RxBus.default.post(obj)
+        processMedia(pickedMediaList)
     }
 
 

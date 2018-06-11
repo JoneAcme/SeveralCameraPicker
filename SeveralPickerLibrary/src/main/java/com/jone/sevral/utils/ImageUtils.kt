@@ -28,19 +28,22 @@ object ImageUtils {
      * @return 返回修复完毕后的图片路径
      */
     fun amendRotatePhoto(originpath: String): String {
+        try {
+            // 取得图片旋转角度
+            val angle = readPictureDegree(originpath)
 
-        // 取得图片旋转角度
-        val angle = readPictureDegree(originpath)
+            // 把原图压缩后得到Bitmap对象
+//        val bmp = BitmapFactory.decodeFile(originpath)
 
-        // 把原图压缩后得到Bitmap对象
-        val bmp = BitmapFactory.decodeFile(originpath)
+            var bmp = BitmapFactory.decodeFile(originpath)
+            // 修复图片被旋转的角度
+            val bitmap = rotaingImageView(angle, bmp)
 
-        // 修复图片被旋转的角度
-        val bitmap = rotaingImageView(angle, bmp)
-
-        // 保存修复后的图片并返回保存后的图片路径
-        writeBitmap(originpath,bitmap)
-
+            // 保存修复后的图片并返回保存后的图片路径
+            writeBitmap(originpath, bitmap)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         return originpath
     }
 
