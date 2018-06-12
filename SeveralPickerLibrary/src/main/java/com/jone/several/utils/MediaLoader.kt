@@ -81,7 +81,7 @@ object MediaLoader {
 
     fun loadAllMedia(mActivity: FragmentActivity,listener:LocalMediaLoadListener) {
         mActivity.supportLoaderManager.initLoader(type, null, object : LoaderManager.LoaderCallbacks<Cursor> {
-            override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {
+            override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor?) {
                 if (data == null) {
                     return
                 }
@@ -160,7 +160,7 @@ object MediaLoader {
                 }
             }
 
-            override fun onLoaderReset(loader: Loader<Cursor>?) {
+            override fun onLoaderReset(loader: Loader<Cursor>) {
             }
 
             override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {

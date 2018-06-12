@@ -17,11 +17,8 @@ import com.jone.several.listener.CameraPictureListener
 import com.jone.several.manager.BaseCameraManager
 import com.jone.several.utils.CameraUtils
 import com.jone.several.utils.ImageUtils
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
 import com.jone.several.utils.Size
+import java.io.*
 
 /**
  * @fileName Camera1Manager
@@ -234,6 +231,7 @@ class Camera1Manager : BaseCameraManager<Int, SurfaceHolder.Callback>() {
 
 
     override fun cameraPictureTaken(outFile: File, listener: CameraPictureListener) {
+
         mBackgroundHandler?.post {
             camera?.let {
                 setCameraPhotoQuality(it)
@@ -263,6 +261,7 @@ class Camera1Manager : BaseCameraManager<Int, SurfaceHolder.Callback>() {
 
 
     protected fun onPictureTaken(bytes: ByteArray, outFile: File, camera: Camera, callback: CameraPictureListener) {
+        val inputStream = ByteArrayInputStream(bytes)
         try {
             val fileOutputStream = FileOutputStream(outFile)
             fileOutputStream.write(bytes)

@@ -68,9 +68,10 @@ class CameraActivityPicker : PickerBaseActivity(), CameraView {
         }
         btn.setOnClickListener {
             if (pickedMediaList.size >= pickerOption.maxPickNumber) {
-                showToast(getString(R.string.message_max_number, pickerOption.maxPickNumber))
-                startPreview()
-                return@setOnClickListener
+                pickedMediaList.removeAt(pickedMediaList.size-1)
+//                showToast(getString(R.string.message_max_number, pickerOption.maxPickNumber))
+//                startPreview()
+//                return@setOnClickListener
             }
             if (Build.VERSION.SDK_INT > MIN_VERSION_ICECREAM && pickerOption.enableClickSound) {
                 MediaActionSound().play(MediaActionSound.SHUTTER_CLICK)
@@ -135,13 +136,13 @@ class CameraActivityPicker : PickerBaseActivity(), CameraView {
         } catch (ignore: Exception) {
         }
         if (pickedMediaList.size >= pickerOption.maxPickNumber)
-            startPreview()
+            startPreview(pickedMediaList.size-1)
         updatePickerActivity()
     }
 
-    private fun startPreview() {
+    private fun startPreview(position:Int = 0) {
         if (mCameraMediaList.isEmpty()) return
-        Navigator.showPreviewView(this, pickerOption, mCameraMediaList, pickedMediaList, 0)
+        Navigator.showPreviewView(this, pickerOption, mCameraMediaList, pickedMediaList, position)
     }
 
     private fun updatePickerActivity() {

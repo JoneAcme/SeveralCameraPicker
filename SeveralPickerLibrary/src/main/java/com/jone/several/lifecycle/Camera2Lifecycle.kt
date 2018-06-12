@@ -65,7 +65,7 @@ class Camera2Lifecycle(private var mContext: Context, private var cameraConfigPr
     }
 
     override fun cameraPictureTaken(outPath: String) {
-        val outputMediaFile = CameraUtils.getOutputMediaFile(mContext, CameraConfig.MEDIA_ACTION_PHOTO, outPath, "IMG_PICKER_2_" + System.currentTimeMillis())
+        val outputMediaFile = CameraUtils.getOutputMediaFile(mContext, CameraConfig.MEDIA_ACTION_PHOTO, outPath, "IMG_PICKER2_" + System.currentTimeMillis())
         mCamera2Manager.cameraPictureTaken(outputMediaFile,this)
     }
 

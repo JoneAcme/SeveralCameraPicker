@@ -1,19 +1,19 @@
 package com.jone.several.utils
 
-import android.media.ExifInterface
-import java.io.IOException
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import android.media.ExifInterface
 import java.io.ByteArrayOutputStream
 import java.io.FileOutputStream
-
+import java.io.IOException
 
 /**
  * @fileName ImageUtils
  * Created by YiangJone on 2018/6/11.
  * @describe
  */
+
 
 object ImageUtils {
 
@@ -45,10 +45,7 @@ object ImageUtils {
     }
 
     private fun writeBitmap(originpath: String, bitmap: Bitmap) {
-//        var bitmap: Bitmap? = null
         try {
-//            bitmap = BitmapFactory.decodeFile(originpath)
-
             if (null == bitmap) return
             val outStream = FileOutputStream(originpath)
             val bos = ByteArrayOutputStream()

@@ -1,1 +1,1 @@
-include ':SeveralPickerLibrary', ':pickerdemo'
+include ':pickerdemo', ':SeveralPickerLibrary'

@@ -40,7 +40,7 @@ import kotlin.properties.Delegates
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 class Camera2Manager : BaseCameraManager<String, TextureView.SurfaceTextureListener>(), TextureView.SurfaceTextureListener,
-ImageReader.OnImageAvailableListener{
+        ImageReader.OnImageAvailableListener{
     private val TAG = "Camera2Manager"
 
     companion object {
@@ -209,7 +209,7 @@ ImageReader.OnImageAvailableListener{
                 unlockFocus()
             }
 
-           override fun onError() {
+            override fun onError() {
                 Log.d(TAG, "onPhotoError: ")
                 mUiiHandler.post { mCameraPictureListener?.onPictureTakeError() }
             }
@@ -305,9 +305,8 @@ ImageReader.OnImageAvailableListener{
             if (mPreviewSize == null)
                 mPreviewSize = CameraUtils.chooseOptimalSize(Size.fromArray2(map?.getOutputSizes(SurfaceTexture::class.java)), mWindowSize.getWidth(), mWindowSize.getHeight(), mPhotoSize)
 
-
         } catch (e: Exception) {
-        Log.e("openCamera",e.message)
+            Log.e("openCamera",e.message)
             e.printStackTrace()
         }
     }
