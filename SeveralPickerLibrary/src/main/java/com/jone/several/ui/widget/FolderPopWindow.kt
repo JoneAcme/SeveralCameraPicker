@@ -2,6 +2,7 @@ package com.jone.several.ui.widget
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
@@ -9,6 +10,7 @@ import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -79,17 +81,17 @@ class FolderPopWindow(private val context: Context) : PopupWindow(), View.OnClic
         this.picture_title = picture_title
     }
 
-    override fun showAsDropDown(anchor: View) {
+
+    fun show(anchor: View, xoff: Int=0, yoff: Int=0) {
         try {
             if (Build.VERSION.SDK_INT >= 24) {
-                val location = IntArray(2)
-                anchor.getLocationOnScreen(location)
-                val height = anchor.height
-                val x = location[0]
-                val y = location[1]
-                super.showAtLocation(anchor, Gravity.NO_GRAVITY, x, y + height)
+                val visibleFrame = Rect()
+                anchor.getGlobalVisibleRect(visibleFrame)
+                val height = anchor.resources.displayMetrics.heightPixels - visibleFrame.bottom
+                this.height = height
+                this.showAsDropDown(anchor, xoff, yoff)
             } else {
-                super.showAsDropDown(anchor)
+                this.showAsDropDown(anchor, xoff, yoff)
             }
 
             isDismiss = false
@@ -98,7 +100,6 @@ class FolderPopWindow(private val context: Context) : PopupWindow(), View.OnClic
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
     fun setOnItemClickListener(onItemClickListener: PickerAlbumAdapter.OnItemClickListener) {

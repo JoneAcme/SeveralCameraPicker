@@ -27,6 +27,7 @@ import java.util.List;
 public final class CameraUtils {
 
     public final static String TAG = "CameraUtils";
+    public final static String smartisan = "SMARTISAN";
     private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 
     private CameraUtils() {
@@ -41,6 +42,7 @@ public final class CameraUtils {
     public static boolean hasCamera2(Context context) {
         if (context == null) return false;
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return false;
+        if (android.os.Build.BRAND .equals(smartisan) ) return false;
         try {
             CameraManager manager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
             String[] idList = manager.getCameraIdList();
@@ -249,8 +251,7 @@ public final class CameraUtils {
             if (Math.abs(ratio - targetRatio) < MIN_TOLERANCE) {
                 MIN_TOLERANCE = Math.abs(ratio - targetRatio);
                 minDiff = Double.MAX_VALUE;
-            }
-            else continue;
+            } else continue;
 
             if (Math.abs(size.getHeight() - targetHeight) < minDiff) {
                 optimalSize = size;
@@ -326,8 +327,7 @@ public final class CameraUtils {
             if (Math.abs(ratio - targetRatio) < MIN_TOLERANCE) {
                 MIN_TOLERANCE = Math.abs(ratio - targetRatio);
                 minDiff = Double.MAX_VALUE;
-            }
-            else continue;
+            } else continue;
 
             if (Math.abs(size.getHeight() - targetHeight) < minDiff) {
                 optimalSize = size;

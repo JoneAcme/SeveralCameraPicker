@@ -47,7 +47,7 @@ class CameraActivityPicker : PickerBaseActivity(), CameraView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.picker_activity_camera)
+
 
         if (!RxBus.default.isRegistered(this))
             RxBus.default.register(this)
@@ -56,7 +56,10 @@ class CameraActivityPicker : PickerBaseActivity(), CameraView {
         this.mCameraConfigProvider.setCameraConfig(CameraConfig.Builder().build())
 
         RxPermissions(this).request(Manifest.permission.CAMERA,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe {
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ).subscribe {
+            setContentView(R.layout.picker_activity_camera)
             val hasCamera2 = CameraUtils.hasCamera2(this)
             Log.e("Activity", "has Camera2:$hasCamera2")
             if (hasCamera2) {
@@ -68,7 +71,7 @@ class CameraActivityPicker : PickerBaseActivity(), CameraView {
         }
         btn.setOnClickListener {
             if (pickedMediaList.size >= pickerOption.maxPickNumber) {
-                pickedMediaList.removeAt(pickedMediaList.size-1)
+                pickedMediaList.removeAt(pickedMediaList.size - 1)
 //                showToast(getString(R.string.message_max_number, pickerOption.maxPickNumber))
 //                startPreview()
 //                return@setOnClickListener
@@ -136,11 +139,11 @@ class CameraActivityPicker : PickerBaseActivity(), CameraView {
         } catch (ignore: Exception) {
         }
         if (pickedMediaList.size >= pickerOption.maxPickNumber)
-            startPreview(pickedMediaList.size-1)
+            startPreview(pickedMediaList.size - 1)
         updatePickerActivity()
     }
 
-    private fun startPreview(position:Int = 0) {
+    private fun startPreview(position: Int = 0) {
         if (mCameraMediaList.isEmpty()) return
         Navigator.showPreviewView(this, pickerOption, mCameraMediaList, pickedMediaList, position)
     }

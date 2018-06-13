@@ -1,6 +1,7 @@
 package com.jone.several.ui
 
 import android.app.Dialog
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.view.Window
@@ -25,6 +26,7 @@ open class PickerBaseActivity : FragmentActivity() {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
 

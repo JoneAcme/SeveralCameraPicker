@@ -68,7 +68,7 @@ fun Activity.compressMedias(pickerOption: PickerOption, mediaList: MutableList<M
             .subscribe(object : Observer<String> {
                 override fun onSubscribe(d: Disposable) {
                     val isFinish = this@compressMedias.isFinishing || this@compressMedias.isDestroyed
-                    if (!loading.isShowing&&!isFinish) loading.show()
+                    if (!loading.isShowing && !isFinish) loading.show()
                 }
 
                 override fun onNext(path: String) {
@@ -90,3 +90,5 @@ fun Activity.compressMedias(pickerOption: PickerOption, mediaList: MutableList<M
 fun onPickerComlete(mList: ArrayList<String>) {
     SeveralImagePicker.mCompleteListener?.let { it.onComlete(mList) }
 }
+
+fun getDeviceBrand() = android.os.Build.BRAND

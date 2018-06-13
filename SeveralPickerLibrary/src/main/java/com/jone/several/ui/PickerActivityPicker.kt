@@ -140,7 +140,7 @@ class PickerActivityPicker : PickerBaseActivity(), PickerAdapter.OnPickChangedLi
                     folderWindow.dismiss()
                 } else {
                     if (allMediaList.size > 0) {
-                        folderWindow.showAsDropDown(pickRlTitle)
+                        folderWindow.show(pickRlTitle)
                         val selectedImages = mAdapter.getPickMediaList()
                         folderWindow.notifyDataCheckedStatus(selectedImages)
                     }

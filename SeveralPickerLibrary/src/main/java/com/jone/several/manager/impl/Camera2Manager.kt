@@ -131,7 +131,7 @@ class Camera2Manager : BaseCameraManager<String, TextureView.SurfaceTextureListe
             this@Camera2Manager.mCameraDevice = cameraDevice
             mUiiHandler.post {
                 if (!TextUtils.isEmpty(mCameraId))
-                    openListener?.onCameraOpened(mCameraId ?: "", mPreviewSize,this@Camera2Manager)
+                    openListener?. onCameraOpened(mCameraId ?: "", mPreviewSize,this@Camera2Manager)
             }
         }
 

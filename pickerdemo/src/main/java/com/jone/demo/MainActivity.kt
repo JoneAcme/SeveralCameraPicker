@@ -2,6 +2,7 @@ package com.jone.demo
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import com.jone.several.SeveralImagePicker
 import com.jone.several.comments.inter.PickerCompleteInterface
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,6 +15,11 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         btn_select.setOnClickListener {
             selectImg()
+        }
+
+        btnPop.setOnClickListener {
+//            UpLoadImgDialog(this).showAtLocation(btnPop,Gravity.CENTER,0,0)
+            UpLoadImgDialog(this).show()
         }
 
     }
