@@ -70,12 +70,7 @@ class CameraActivityPicker : PickerBaseActivity(), CameraView {
             }
         }
         btn.setOnClickListener {
-            if (pickedMediaList.size >= pickerOption.maxPickNumber) {
-                pickedMediaList.removeAt(pickedMediaList.size - 1)
-//                showToast(getString(R.string.message_max_number, pickerOption.maxPickNumber))
-//                startPreview()
-//                return@setOnClickListener
-            }
+
             if (Build.VERSION.SDK_INT > MIN_VERSION_ICECREAM && pickerOption.enableClickSound) {
                 MediaActionSound().play(MediaActionSound.SHUTTER_CLICK)
             }
@@ -126,6 +121,9 @@ class CameraActivityPicker : PickerBaseActivity(), CameraView {
 //        if (Build.VERSION.SDK_INT > MIN_VERSION_ICECREAM && pickerOption.enableClickSound) {
 //            MediaActionSound().play(MediaActionSound.SHUTTER_CLICK)
 //        }
+        if (pickedMediaList.isNotEmpty()&&pickedMediaList.size >= pickerOption.maxPickNumber) {
+            pickedMediaList.removeAt(0)
+        }
         loadCameraPreviewImage(outPath, ivPreview)
         val mediaEntity = MediaEntity.newBuilder()
                 .localPath(outPath)
@@ -138,8 +136,9 @@ class CameraActivityPicker : PickerBaseActivity(), CameraView {
             ) { path, uri -> }
         } catch (ignore: Exception) {
         }
-        if (pickedMediaList.size >= pickerOption.maxPickNumber)
-            startPreview(pickedMediaList.size - 1)
+        if (pickedMediaList.size >= pickerOption.maxPickNumber){
+            startPreview(mCameraMediaList.size - 1)
+        }
         updatePickerActivity()
     }
 

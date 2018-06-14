@@ -40,7 +40,7 @@ class PickerOption() : Parcelable {
     var enableCamera = true
 
     //最大选择张数，默认为9
-    var maxPickNumber = 9
+    var maxPickNumber = 3
     //最小选择张数，默认为0，表示不限制
     var minPickNumber = 0
     //图片选择界面每行图片个数
