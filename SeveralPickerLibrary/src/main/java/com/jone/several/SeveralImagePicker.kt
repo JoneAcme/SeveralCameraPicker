@@ -64,5 +64,9 @@ object SeveralImagePicker {
     fun start(activity: Activity) {
         Jumper.startPicker(activity)
     }
+    fun start(activity: Activity, maxCount:Int) {
+        pickerOption.maxPickNumber = maxCount
+        Jumper.startPicker(activity)
+    }
 
 }
