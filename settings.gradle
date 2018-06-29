@@ -1,1 +1,1 @@
-include ':pickerdemo', ':SeveralPickerLibrary'
+include ':app', ':SeveralPickerLibrary', ':MCameraLibrary'

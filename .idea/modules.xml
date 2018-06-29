@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MCameraLibrary/MCameraLibrary.iml" filepath="$PROJECT_DIR$/MCameraLibrary/MCameraLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MySeveralCamera.iml" filepath="$PROJECT_DIR$/MySeveralCamera.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SeveralPickerLibrary/SeveralPickerLibrary.iml" filepath="$PROJECT_DIR$/SeveralPickerLibrary/SeveralPickerLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/pickerdemo.iml" filepath="$PROJECT_DIR$/app/pickerdemo.iml" />
+      <module fileurl="file://D:\AndroidWorkSpace\MySeveralCamera\SeveralPickerLibrary\app.iml" filepath="D:\AndroidWorkSpace\MySeveralCamera\SeveralPickerLibrary\app.iml" />
+    </modules>
+  </component>
+</project>

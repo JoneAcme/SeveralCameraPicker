@@ -38,7 +38,7 @@ class SimpleFragmentAdapter(var mContext: Context, var allMediaList: MutableList
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val contentView = LayoutInflater.from(container.context).inflate(R.layout.picker_item_vp_preview, container, false)
+        val contentView = LayoutInflater.from(container.context).inflate(R.layout.item_several_vp_preview, container, false)
 
         val preview_image = contentView.findViewById<PhotoView>(R.id.preview_image)
 

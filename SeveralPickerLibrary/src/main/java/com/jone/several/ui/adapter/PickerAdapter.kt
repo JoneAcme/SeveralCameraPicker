@@ -14,13 +14,13 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.widget.ImageView
 import com.jone.several.R
+import com.jone.several.SeveralImagePicker
 import com.jone.several.config.MimeType
 import com.jone.several.config.PickerConstant
-import com.jone.several.config.PickerOption
 import com.jone.several.model.MediaEntity
 import com.jone.several.utils.*
-import kotlinx.android.synthetic.main.picker_item_camera.view.*
-import kotlinx.android.synthetic.main.picker_item_grid_media.view.*
+import kotlinx.android.synthetic.main.item_several_camera.view.*
+import kotlinx.android.synthetic.main.item_several_grid_media.view.*
 import java.util.ArrayList
 
 /**
@@ -30,10 +30,10 @@ import java.util.ArrayList
  */
 
 
-class PickerAdapter(private val context: Context, private val config: PickerOption) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PickerAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var enableCamera = false
-    private var onPicktChangedListener: OnPickChangedListener? = null
+    private var onPickChangedListener: OnPickChangedListener? = null
     private val maxSelectNum: Int
     private val allMediaList: MutableList<MediaEntity> = ArrayList()
     private val pickMediaList: MutableList<MediaEntity> = ArrayList()
@@ -47,17 +47,16 @@ class PickerAdapter(private val context: Context, private val config: PickerOpti
     var isExceedMax: Boolean = false
 
     init {
-        this.enableCamera = config.enableCamera
-        this.maxSelectNum = config.maxPickNumber
-        this.enablePreview = config.enablePreview
-        this.overrideWidth = config.thumbnailWidth
-        this.overrideHeight = config.thumbnailHeight
-        this.enableVoice = config.enableClickSound
-        this.zoomAnim = config.enableAnimation
-        this.numPick = config.enableNumPick
+        val option = SeveralImagePicker.pickerOption
+        this.enableCamera = option.enableCamera
+        this.maxSelectNum = option.maxPickNumber
+        this.enablePreview = option.enablePreview
+        this.overrideWidth = option.thumbnailWidth
+        this.overrideHeight = option.thumbnailHeight
+        this.enableVoice = option.enableClickSound
+        this.zoomAnim = option.enableAnimation
+        this.numPick = option.enableNumPick
 
-//        this.overrideWidth = ScreenUtil.dip2px(context,config.thumbnailWidth.toFloat())
-//        this.overrideHeight =  ScreenUtil.dip2px(context,config.thumbnailHeight.toFloat())
     }
 
     fun setAllMediaList(medias: MutableList<MediaEntity>) {
@@ -74,7 +73,7 @@ class PickerAdapter(private val context: Context, private val config: PickerOpti
         pickMediaList.clear()
         pickMediaList.addAll(medias)
         subSelectPosition()
-        onPicktChangedListener?.onChange(pickMediaList)
+        onPickChangedListener?.onChange(pickMediaList)
     }
 
     fun getPickMediaList(): MutableList<MediaEntity> {
@@ -91,10 +90,10 @@ class PickerAdapter(private val context: Context, private val config: PickerOpti
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == PickerConstant.TYPE_CAMERA) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.picker_item_camera, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_several_camera, parent, false)
             return HeaderViewHolder(view)
         } else {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.picker_item_grid_media, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_several_grid_media, parent, false)
             return ContentViewHolder(view)
         }
     }
@@ -103,7 +102,7 @@ class PickerAdapter(private val context: Context, private val config: PickerOpti
         if (getItemViewType(position) == PickerConstant.TYPE_CAMERA) {
             val headerHolder = holder as HeaderViewHolder
             headerHolder.itemView.camera.setOnClickListener {
-                onPicktChangedListener?.onTakePhoto()
+                onPickChangedListener?.onTakePhoto()
             }
         } else {
             val contentHolder = holder as ContentViewHolder
@@ -130,7 +129,7 @@ class PickerAdapter(private val context: Context, private val config: PickerOpti
             contentHolder.itemView.setOnClickListener {
                 if (enablePreview) {
                     val index = if (enableCamera) position - 1 else position
-                    onPicktChangedListener!!.onPictureClick(image, index)
+                    onPickChangedListener!!.onPictureClick(image, index)
                 } else {
                     changeCheckboxState(contentHolder, image)
                 }
@@ -226,8 +225,8 @@ class PickerAdapter(private val context: Context, private val config: PickerOpti
             notifyItemChanged(contentHolderContent.adapterPosition)
             selectImage(contentHolderContent, !isChecked, false)
         }
-        if (onPicktChangedListener != null) {
-            onPicktChangedListener!!.onChange(pickMediaList)
+        if (onPickChangedListener != null) {
+            onPickChangedListener!!.onChange(pickMediaList)
         }
     }
 
@@ -273,7 +272,7 @@ class PickerAdapter(private val context: Context, private val config: PickerOpti
     }
 
     fun setOnPickChangedListener(onPickChangedListener: OnPickChangedListener) {
-        this.onPicktChangedListener = onPickChangedListener
+        this.onPickChangedListener = onPickChangedListener
     }
 
     private fun zoom(iv_img: ImageView) {

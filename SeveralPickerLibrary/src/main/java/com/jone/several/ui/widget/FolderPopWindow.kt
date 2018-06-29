@@ -10,8 +10,6 @@ import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.Animation
@@ -34,7 +32,7 @@ import com.jone.several.utils.StringUtils
 
 
 class FolderPopWindow(private val context: Context) : PopupWindow(), View.OnClickListener {
-    private val window: View = LayoutInflater.from(context).inflate(R.layout.picker_pop_window_folder, null)
+    private val window: View = LayoutInflater.from(context).inflate(R.layout.pop_several_window_folder, null)
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PickerAlbumAdapter
     private val animationIn: Animation

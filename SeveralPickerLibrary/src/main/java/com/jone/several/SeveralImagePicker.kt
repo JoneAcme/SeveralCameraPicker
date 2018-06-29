@@ -1,13 +1,11 @@
 package com.jone.several
 
 import android.app.Activity
-import com.jone.several.comments.impl.DefaultCompress
 import com.jone.several.comments.impl.DefaultToast
 import com.jone.several.comments.impl.DefaultImageLoader
-import com.jone.several.comments.impl.DefaultLoading
 import com.jone.several.comments.inter.*
-import com.jone.several.config.PickerOption
-import com.jone.several.utils.Navigator
+import com.jone.several.config.SeveralPickerOption
+import com.jone.several.utils.Jumper
 
 /**
  * @fileName SeveralImagePicker
@@ -16,43 +14,28 @@ import com.jone.several.utils.Navigator
  */
 
 object SeveralImagePicker {
+
+
+    internal var pickerOption: SeveralPickerOption = SeveralPickerOption()
+
     /**
      * Toast
      */
     internal var mToast: ToastInterFace = DefaultToast()
     /**
-     * loading、 dialog
-     */
-    internal var mLoadingDialog: LoadingDialogInterface = DefaultLoading()
-    /**
      * 图片加载
      */
     internal var mImageLoader: ImageLoaderInterface = DefaultImageLoader()
     /**
-     * 图片压缩
-     */
-    internal var mCompress: CompressInterface = DefaultCompress()
-    /**
      * 图片返回回调
      */
     internal var mCompleteListener: PickerCompleteInterface? = null
-
-
-    internal var pickerOption: PickerOption = PickerOption()
 
     /**
      * Toast
      */
     fun setDefaultToast(mToast: ToastInterFace): SeveralImagePicker {
         this.mToast = mToast
-        return this
-    }
-
-    /**
-     * loading、 dialog
-     */
-    fun setDefaultLoadingDialog(mLoadingDialog: LoadingDialogInterface): SeveralImagePicker {
-        this.mLoadingDialog = mLoadingDialog
         return this
     }
 
@@ -64,13 +47,6 @@ object SeveralImagePicker {
         return this
     }
 
-    /**
-     * 图片压缩
-     */
-    fun setDefaultCompress(mCompress: CompressInterface): SeveralImagePicker {
-        this.mCompress = mCompress
-        return this
-    }
 
     /**
      * 图片返回回调
@@ -79,18 +55,14 @@ object SeveralImagePicker {
         this.mCompleteListener = mCompleteListener
         return this
     }
-    /**
-     * 图片选择参数
-     */
-    fun setOptions( pickerOption: PickerOption) : SeveralImagePicker{
+
+    fun setOption(pickerOption: SeveralPickerOption): SeveralImagePicker {
         this.pickerOption = pickerOption
-        return  this
+        return this
     }
 
-
     fun start(activity: Activity) {
-        this.mCompleteListener = mCompleteListener
-        Navigator.startPicker(activity, pickerOption)
+        Jumper.startPicker(activity)
     }
 
 }

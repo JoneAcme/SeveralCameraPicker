@@ -22,6 +22,6 @@ class PickerLoadingDialog(context: Context) : Dialog(context, R.style.picker_sty
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.picker_dialog_loading)
+        setContentView(R.layout.dialog_several_loading)
     }
 }

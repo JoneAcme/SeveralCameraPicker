@@ -104,14 +104,6 @@ object MediaLoader {
                             var fileType = 0
                             var duration = 0L
                             fileType = 1
-//                            if (mimeType.startsWith(PhoenixConstant.AUDIO)) {
-//                                fileType = MimeType.ofAudio()
-//                            } else if (mimeType.startsWith(PhoenixConstant.IMAGE)) {
-//                                fileType = MimeType.ofImage()
-//                            } else if (mimeType.startsWith(PhoenixConstant.VIDEO)) {
-//                                fileType = MimeType.ofVideo()
-//                                duration = data.getLong(data.getColumnIndexOrThrow(ALL_PROJECTION[10]))
-//                            }
 
                             val size = data.getLong(data.getColumnIndexOrThrow(ALL_PROJECTION[5]))
                             val width = data.getInt(data.getColumnIndexOrThrow(ALL_PROJECTION[6]))

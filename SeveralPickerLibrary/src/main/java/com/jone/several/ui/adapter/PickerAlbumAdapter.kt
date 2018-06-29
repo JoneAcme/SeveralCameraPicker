@@ -11,7 +11,7 @@ import com.jone.several.R
 import com.jone.several.model.MediaEntity
 import com.jone.several.model.MediaFolder
 import com.jone.several.utils.loadImage
-import kotlinx.android.synthetic.main.picker_item_album_folder.view.*
+import kotlinx.android.synthetic.main.item_several_album_folder.view.*
 import java.util.ArrayList
 
 /**
@@ -40,7 +40,7 @@ class PickerAlbumAdapter(private val mContext: Context) : RecyclerView.Adapter<P
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(mContext).inflate(R.layout.picker_item_album_folder, parent, false)
+        val itemView = LayoutInflater.from(mContext).inflate(R.layout.item_several_album_folder, parent, false)
         return ViewHolder(itemView)
     }
 

@@ -1,15 +1,15 @@
 package com.jone.several.ui
 
-import android.app.Dialog
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.view.Window
 import android.view.WindowManager
 import com.jone.several.SeveralImagePicker
+import com.jone.several.config.PickerConstant
+import com.jone.several.model.EventEntity
 import com.jone.several.model.MediaEntity
-import com.jone.several.utils.compressMedias
-import com.jone.several.utils.createLoadingDialog
+import com.jone.several.model.rxbus.RxBus
 import com.jone.several.utils.onPickerComlete
 
 /**
@@ -19,8 +19,8 @@ import com.jone.several.utils.onPickerComlete
  */
 
 open class PickerBaseActivity : FragmentActivity() {
-    protected var pickerOption = SeveralImagePicker.pickerOption
-    protected val loadingDialog: Dialog by lazy { createLoadingDialog() }
+
+    protected var option = SeveralImagePicker.pickerOption
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -30,22 +30,18 @@ open class PickerBaseActivity : FragmentActivity() {
     }
 
 
-    protected fun processMedia(mediaList: MutableList<MediaEntity>) {
-        compressMedias(pickerOption, mediaList, loadingDialog, { mList ->
-            onPickerComlete(mList)
-            finish()
-        })
+    protected fun completePicker(mediaList: MutableList<MediaEntity>) {
+        val list = mediaList.map { it.localPath } as ArrayList<String>
+        onPickerComlete(list)
+
+        val obj = EventEntity(PickerConstant.FLAG_PREVIEW_COMPLETE, mediaList, 0)
+        RxBus.default.post(obj)
+        finish()
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        if(loadingDialog.isShowing) loadingDialog.hide()
     }
 
-    protected fun showLoading() {
-        if(!loadingDialog.isShowing) loadingDialog.show()
-    }
-    protected fun dissmissLoading() {
-        if(loadingDialog.isShowing) loadingDialog.hide()
-    }
 }
