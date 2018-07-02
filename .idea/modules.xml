@@ -5,8 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/MCameraLibrary/MCameraLibrary.iml" filepath="$PROJECT_DIR$/MCameraLibrary/MCameraLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/MySeveralCamera.iml" filepath="$PROJECT_DIR$/MySeveralCamera.iml" />
       <module fileurl="file://$PROJECT_DIR$/SeveralPickerLibrary/SeveralPickerLibrary.iml" filepath="$PROJECT_DIR$/SeveralPickerLibrary/SeveralPickerLibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/pickerdemo.iml" filepath="$PROJECT_DIR$/app/pickerdemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://D:\AndroidWorkSpace\MySeveralCamera\SeveralPickerLibrary\app.iml" filepath="D:\AndroidWorkSpace\MySeveralCamera\SeveralPickerLibrary\app.iml" />
+      <module fileurl="file://D:\AndroidWorkSpace\MySeveralCamera\app\pickerdemo.iml" filepath="D:\AndroidWorkSpace\MySeveralCamera\app\pickerdemo.iml" />
     </modules>
   </component>
 </project>

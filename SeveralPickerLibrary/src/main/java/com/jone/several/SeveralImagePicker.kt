@@ -1,8 +1,10 @@
 package com.jone.several
 
 import android.app.Activity
+import com.jone.several.comments.impl.DefaultCompress
 import com.jone.several.comments.impl.DefaultToast
 import com.jone.several.comments.impl.DefaultImageLoader
+import com.jone.several.comments.impl.DefaultLoading
 import com.jone.several.comments.inter.*
 import com.jone.several.config.SeveralPickerOption
 import com.jone.several.utils.Jumper
@@ -19,6 +21,11 @@ object SeveralImagePicker {
     internal var pickerOption: SeveralPickerOption = SeveralPickerOption()
 
     /**
+     * loading
+     */
+    internal var loadingDialog: LoadingDialogInterface = DefaultLoading()
+
+    /**
      * Toast
      */
     internal var mToast: ToastInterFace = DefaultToast()
@@ -26,6 +33,11 @@ object SeveralImagePicker {
      * 图片加载
      */
     internal var mImageLoader: ImageLoaderInterface = DefaultImageLoader()
+
+    /**
+     * 图片压缩
+     */
+    internal var mCompress: CompressInterface = DefaultCompress()
     /**
      * 图片返回回调
      */
@@ -58,6 +70,10 @@ object SeveralImagePicker {
 
     fun setOption(pickerOption: SeveralPickerOption): SeveralImagePicker {
         this.pickerOption = pickerOption
+        return this
+    }
+    fun setCompressListener(mCompress: CompressInterface): SeveralImagePicker {
+        this.mCompress = mCompress
         return this
     }
 

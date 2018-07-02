@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    buildToolsVersion '27.0.3'
     defaultConfig {
 //        applicationId "com.jone.sevral"
         minSdkVersion rootProject.ext.minSdkVersion

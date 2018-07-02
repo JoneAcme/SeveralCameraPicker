@@ -10,6 +10,7 @@ import com.jone.several.config.PickerConstant
 import com.jone.several.model.EventEntity
 import com.jone.several.model.MediaEntity
 import com.jone.several.model.rxbus.RxBus
+import com.jone.several.utils.compressMedias
 import com.jone.several.utils.onPickerComlete
 
 /**
@@ -21,6 +22,8 @@ import com.jone.several.utils.onPickerComlete
 open class PickerBaseActivity : FragmentActivity() {
 
     protected var option = SeveralImagePicker.pickerOption
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -31,17 +34,18 @@ open class PickerBaseActivity : FragmentActivity() {
 
 
     protected fun completePicker(mediaList: MutableList<MediaEntity>) {
-        val list = mediaList.map { it.localPath } as ArrayList<String>
-        onPickerComlete(list)
-
-        val obj = EventEntity(PickerConstant.FLAG_PREVIEW_COMPLETE, mediaList, 0)
-        RxBus.default.post(obj)
-        finish()
-
+        var loadingDialog = SeveralImagePicker.loadingDialog.createDialog(this)
+        compressMedias(option, mediaList, loadingDialog, { mList ->
+            onPickerComlete(mList)
+            val obj = EventEntity(PickerConstant.FLAG_PREVIEW_COMPLETE, mediaList, 0)
+            RxBus.default.post(obj)
+            finish()
+        })
     }
 
     override fun onDestroy() {
         super.onDestroy()
     }
+
 
 }

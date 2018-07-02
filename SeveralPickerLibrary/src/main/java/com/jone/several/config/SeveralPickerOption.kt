@@ -15,6 +15,11 @@ import android.os.Parcelable
 
 class SeveralPickerOption {
 
+    var isCompress = true
+
+    var compressQuality = 50
+
+    var compressPictureFilterSize = 1024
     //是否显示拍照按钮
     var enableCamera = true
 
