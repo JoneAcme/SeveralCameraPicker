@@ -67,5 +67,5 @@ public interface ManagerInterface {
 
     void compressVideo(String localPath,CameraViewOptions mCameraOption);
 
-    void compressImage(Bitmap bitmap, CameraViewOptions mCameraOption);
+    void compressImage(byte[] data, CameraViewOptions mCameraOption);
 }

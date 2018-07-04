@@ -16,6 +16,7 @@ import com.google.android.cameraview.callback.CameraManagerCallBack;
 import com.google.android.cameraview.compress.CompressUtils;
 import com.google.android.cameraview.configs.CameraConfig;
 import com.google.android.cameraview.configs.CameraViewOptions;
+import com.google.android.cameraview.helper.CameraUtils;
 import com.google.android.cameraview.model.Size;
 
 
@@ -47,11 +48,11 @@ abstract class CameraManager implements ManagerInterface {
     boolean mIsVideoRecording = false;
 
 
-    CameraManager(CameraManagerCallBack callback, CameraPreview preview, Context context) {
-        this.mCameraOption = new CameraViewOptions.Builder(context).create();
+    CameraManager(CameraManagerCallBack callback, CameraPreview preview, Context context,CameraViewOptions options) {
         mContext = context;
         mCallback = callback;
         mPreview = preview;
+        this.mCameraOption = options;
         startBackgroundThread();
     }
 
@@ -132,7 +133,8 @@ abstract class CameraManager implements ManagerInterface {
     }
 
     @Override
-    public void compressImage(Bitmap bitmap, CameraViewOptions mCameraOption) {
+    public void compressImage(byte[] data, CameraViewOptions mCameraOption) {
+        Bitmap bitmap = CameraUtils.rotationBitmap(data);
         CompressUtils.ansyPictrueCompress(mContext, bitmap, mCameraOption);
     }
 

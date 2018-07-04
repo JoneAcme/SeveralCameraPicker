@@ -116,6 +116,7 @@ public class CompressUtils {
             Log.d(TAG, "saveBitmap:" + outPath + "  rotation:" + new ExifInterface(outPath).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED));
             return true;
         } catch (Exception e) {
+            Log.e(TAG, "saveBitmap ERROR!!:" + e.getMessage());
             e.printStackTrace();
             return false;
         }

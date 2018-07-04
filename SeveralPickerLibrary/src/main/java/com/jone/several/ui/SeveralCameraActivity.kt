@@ -42,7 +42,6 @@ class SeveralCameraActivity : PickerBaseActivity(), CompressListener {
     }
 
     private fun initCameraView() {
-
         val viewOptions = CameraViewOptions.Builder(this).setCompressListener(this).create()
         mCameraView.setCameraOption(viewOptions)
     }

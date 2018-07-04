@@ -95,8 +95,8 @@ class Camera1Manager extends CameraManager {
     private Handler mHandler = new Handler();
     private Camera.AutoFocusCallback mAutofocusCallback;//这个貌似并没有起到作用，后期考虑删除
 
-    public Camera1Manager(CameraManagerCallBack callback, CameraPreview preview, Context context) {
-        super(callback, preview, context);
+    public Camera1Manager(CameraManagerCallBack callback, CameraPreview preview, Context context,CameraViewOptions options) {
+        super(callback, preview, context,options);
         if (mPreview != null) {
             mPreview.setCallback(new CameraPreview.Callback() {
                 @Override
@@ -322,44 +322,12 @@ class Camera1Manager extends CameraManager {
                 public void onPictureTaken(byte[] data, Camera camera) {
                     CameraLog.i(TAG, "takePictureInternal, onPictureTaken");
                     isPictureCaptureInProgress.set(false);
-
-                    Bitmap bitmapPicture;
-                    int orientation = Exif.getOrientation(data);
-                    CameraLog.i(TAG, "takePictureInternal, orientation::::::"+orientation);
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                    switch (orientation) {
-                        case 90:
-                            bitmapPicture = rotateImage(bitmap, 90);
-
-                            break;
-                        case 180:
-                            bitmapPicture = rotateImage(bitmap, 180);
-
-                            break;
-                        case 270:
-                            bitmapPicture = rotateImage(bitmap, 270);
-
-                            break;
-
-                        default:
-                            bitmapPicture = bitmap;
-                            break;
-                    }
-
-                    compressImage(bitmapPicture, mCameraOption);
-
+                    compressImage(data, mCameraOption);
                     camera.cancelAutoFocus();
                     camera.startPreview();
                 }
             });
         }
-    }
-
-    public static Bitmap rotateImage(Bitmap source, float angle) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(angle);
-        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix,
-                true);
     }
 
 
